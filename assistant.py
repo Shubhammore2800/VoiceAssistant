@@ -3,6 +3,9 @@ import datetime
 import speech_recognition as sr
 import wikipedia
 import webbrowser
+import os
+import smtplib
+
 
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
@@ -41,6 +44,14 @@ def takeCommand():
         return "None"
     return query
 
+def sendEmail(to,content):
+    server = smtplib.SMTP("smtp.gmail.com", 587)
+    server.ehlo()
+    server.starttls()
+    server.login("psm282000@gmail.com", "password")
+    server.send("psm282000@gmail.com", to, content)
+    server.close()
+
 
 if __name__ == "__main__":
     wishMe()
@@ -59,3 +70,22 @@ if __name__ == "__main__":
 
         elif 'open stackoverflow' in query:
             webbrowser.open("stackoverflow.com")
+    
+        elif 'open github' in query:
+            webbrowser.open("github.com")
+
+        elif 'open github' in query:
+            webbrowser.open("github.com")
+
+        elif 'the time' in query:
+            strTime = datetime.datetime.now().strftime("%H:%M:%S")
+            speak(strTime)
+        elif 'email to aditya' in query:
+            try:
+                speak("What should be the content?")
+                content = takeCommand()
+                to = "addypatil200@gmail.com"
+                sendEmail(to, content)
+                speak("Email has been sent")
+            except Exception as e:
+                print("Sorry ,I cant hear you prperly")
