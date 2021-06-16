@@ -7,6 +7,7 @@ import os
 import smtplib
 
 
+
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
 engine.setProperty('voices', voices[1].id)
@@ -15,6 +16,7 @@ engine.setProperty('voices', voices[1].id)
 def speak(audio):
     engine.say(audio)
     engine.runAndWait()
+
 
 def wishMe():
     hour = int(datetime.datetime.now().hour)
@@ -26,6 +28,7 @@ def wishMe():
         speak("Good Eveening")
     
     speak("Hi Shubh,How May I Help You")
+
 
 
 def takeCommand():
@@ -43,6 +46,7 @@ def takeCommand():
         print("Say that again")
         return "None"
     return query
+
 
 def sendEmail(to,content):
     server = smtplib.SMTP("smtp.gmail.com", 587)
@@ -89,3 +93,10 @@ if __name__ == "__main__":
                 speak("Email has been sent")
             except Exception as e:
                 print("Sorry ,I cant hear you prperly")
+        
+        elif 'thank you for the help' in query:
+            speak("Welcome")
+        
+        else:
+            if 'quit' in query:
+                exit()
